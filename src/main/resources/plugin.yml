@@ -1,0 +1,9 @@
+name: IPWhitelist
+version: ${project.version}
+main: me.bermine.ipwhitelist.IPWhitelist
+authors: [ Bermine ]
+description: Allows a player to join only if their IP is whitelisted
+commands:
+  ipw:
+    description: Main command
+    aliases: [ipwhitelist]

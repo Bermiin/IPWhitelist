@@ -1,0 +1,5 @@
+whitelisted_ips:
+  - "put you ip here"
+  - "you can use multiple ips"
+kick_message: "Logging in.."
+config_reloaded: "&aConfig reloaded successfully"
