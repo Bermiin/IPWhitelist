@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -45,13 +44,8 @@ public final class IPWhitelist extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPreLogin(AsyncPlayerPreLoginEvent e) {
-		getLogger().info("Incoming connection from " + e.getAddress().toString());
-        for (String ip : getConfig().getStringList("whitelisted_ips")) {
-            if (!ip.equals(e.getAddress().toString().replace("/", ""))) {
-                e.setKickMessage(colored(getConfig().getString("kick_message")));
-                e.setLoginResult(Result.KICK_OTHER);
-				getLogger().info("Incoming connection from " + e.getAddress().toString() + " was blocked.");
-            }
+        if (!getConfig().getStringList("whitelisted_ips").contains(e.getAddress().getHostAddress())) {
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, colored(getConfig().getString("kick_message")));
         }
     }
 
