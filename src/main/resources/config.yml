@@ -2,4 +2,5 @@ whitelisted_ips:
   - "put you ip here"
   - "you can use multiple ips"
 kick_message: "Logging in.."
+no_permission: "&cNo permission."
 config_reloaded: "&aConfig reloaded successfully"

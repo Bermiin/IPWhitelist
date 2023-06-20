@@ -1,8 +1,6 @@
 package me.bermine.ipwhitelist;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -20,26 +18,8 @@ public final class IPWhitelist extends JavaPlugin implements Listener {
             this.saveDefaultConfig();
         }
         getServer().getPluginManager().registerEvents(this, this);
-        getCommand("ipw").setExecutor(this);
+        getCommand("ipw").setExecutor(new IPWhitelistCommand(this));
         getLogger().info("Plugin enabled!");
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (label.equalsIgnoreCase("ipw")) {
-            if (args.length == 1 && args[0].equals("reload")) {
-                this.reloadConfig();
-                sender.sendMessage(colored(getConfig().getString("config_reloaded")));
-            } else {
-                sender.sendMessage(ChatColor.RED + "Usage: /ipw reload");
-            }
-        }
-        return false;
     }
 
     @EventHandler
