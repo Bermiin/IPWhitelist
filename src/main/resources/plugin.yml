@@ -2,6 +2,7 @@ name: IPWhitelist
 version: ${project.version}
 main: me.bermine.ipwhitelist.IPWhitelist
 authors: [ Bermine ]
+api-version: 1.13
 description: Allows a player to join only if their IP is whitelisted
 commands:
   ipw:
