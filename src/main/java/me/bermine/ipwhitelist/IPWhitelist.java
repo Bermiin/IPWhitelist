@@ -1,12 +1,13 @@
 package me.bermine.ipwhitelist;
 
-import org.bukkit.ChatColor;
+import me.bermine.ipwhitelist.util.CC;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 
 public final class IPWhitelist extends JavaPlugin implements Listener {
 
@@ -24,12 +25,13 @@ public final class IPWhitelist extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPreLogin(AsyncPlayerPreLoginEvent e) {
-        if (!getConfig().getStringList("whitelisted_ips").contains(e.getAddress().getHostAddress())) {
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, colored(getConfig().getString("kick_message")));
+        List<String> list = getConfig().getStringList("whitelisted_ips");
+        if (getConfig().getString("policy").equalsIgnoreCase("WHITELIST") && !list.contains(e.getAddress().getHostAddress())) {
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, CC.translate(getConfig().getString("kick_message")));
+            return;
         }
-    }
-
-    private String colored(String message) {
-        return ChatColor.translateAlternateColorCodes('&', message);
+        if (getConfig().getString("policy").equalsIgnoreCase("BLACKLIST") && list.contains(e.getAddress().getHostAddress())) {
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, CC.translate(getConfig().getString("kick_message")));
+        }
     }
 }

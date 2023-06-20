@@ -1,6 +1,13 @@
+# WHITELIST = Only IPs that are in "whitelisted_ips" will be able to join
+# BLACKLIST = IPs that are in "whitelisted_ips" will not be able to join
+policy: "WHITELIST"
+# Put here IPs that you want (or don't want) to be able to join
 whitelisted_ips:
-  - "put you ip here"
+  - "put your ip here"
   - "you can use multiple ips"
+# If IP is not whitelisted or is blacklisted,
+# They'll be kicked with this message
 kick_message: "Logging in.."
+# No permission message
 no_permission: "&cNo permission."
 config_reloaded: "&aConfig reloaded successfully"
